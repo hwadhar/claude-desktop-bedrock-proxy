@@ -1,0 +1,23 @@
+{
+  "name": "claude-desktop-proxy",
+  "version": "1.0.0",
+  "description": "Local proxy to connect Claude Desktop to AWS Bedrock",
+  "main": "claude-desktop-proxy.ts",
+  "scripts": {
+    "start": "tsx claude-desktop-proxy.ts",
+    "dev": "tsx watch claude-desktop-proxy.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.688.0",
+    "@aws-sdk/credential-providers": "^3.688.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.24",
+    "tsx": "^4.7.1",
+    "typescript": "^5.6.3"
+  }
+}

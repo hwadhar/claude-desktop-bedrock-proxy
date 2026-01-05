@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime
+*.log
+proxy.log
+proxy.pid
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# AWS credentials (security)
+.aws/
+aws-credentials.json
+
+# Build artifacts
+dist/
+build/
+coverage/
+
+# Lock files (let team choose their package manager)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
