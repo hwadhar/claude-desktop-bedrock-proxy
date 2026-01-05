@@ -8,6 +8,7 @@
     "dev": "tsx watch claude-desktop-proxy.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-bedrock": "^3.688.0",
     "@aws-sdk/client-bedrock-runtime": "^3.688.0",
     "@aws-sdk/credential-providers": "^3.688.0",
     "cors": "^2.8.5",

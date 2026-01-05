@@ -17,6 +17,12 @@
 **Required Configuration:**
 - ✅ **AWS Profile**: `ai-agent` profile configured
 - ✅ **Okta CLI**: `~/.local/bin/okta-aws-cli-dev-product` exists and works
+  - ⚠️ **Note**: Okta binary path may vary by installation. Check your actual path:
+    ```bash
+    which okta-aws-cli-dev-product
+    # or find it with: find /usr -name "*okta-aws*" 2>/dev/null
+    # Update start.sh if your path is different
+    ```
 - ✅ **Claude Desktop**: Installed and running
 
 **⚠️ Pre-flight Check:**
@@ -79,19 +85,33 @@ chmod +x setup.sh start.sh test.sh
 Claude Desktop → localhost:7847 → AWS Bedrock (us-west-2)
 ```
 
-- **Models**: Automatically maps Claude model names to Bedrock inference profiles
-- **Auth**: Uses your existing `ai-agent` AWS profile + Okta authentication
-- **Streaming**: Full support for real-time responses
-- **Tools**: Forwards tool use requests 1:1
+- **🔄 Dynamic Models**: Automatically fetches available models from Bedrock API at startup
+- **📋 Smart Mapping**: Maps Claude model names to Bedrock inference profiles
+- **🔐 Auth**: Uses your existing `ai-agent` AWS profile + Okta authentication
+- **⚡ Streaming**: Full support for real-time responses
+- **🛠 Tools**: Forwards tool use requests 1:1
+- **🛡 Fallback**: Uses hardcoded mapping if API unavailable
 
 ## Supported Models
 
-| Claude Desktop | Bedrock Inference Profile |
-|----------------|---------------------------|
-| `claude-3-5-sonnet-20241022` | `us.anthropic.claude-3-5-sonnet-20241022-v2:0` |
-| `claude-sonnet-4-5-20250929` | `us.anthropic.claude-sonnet-4-20250514-v1:0` |
-| `sonnet-4` | `us.anthropic.claude-sonnet-4-20250514-v1:0` |
-| `claude-3-5-haiku-20241022` | `us.anthropic.claude-3-5-haiku-20241022-v1:0` |
+**🔄 Dynamic Model Support**: The proxy automatically fetches all available Anthropic models from Bedrock at startup and creates intelligent mappings.
+
+**📋 Model Features**:
+- ✅ **Auto-discovery**: Fetches latest models from Bedrock API
+- ✅ **Smart aliases**: Creates common name variations (e.g., `sonnet-4` → actual model ID)
+- ✅ **Deprecated filtering**: Automatically excludes legacy/deprecated models
+- ✅ **Fallback support**: Uses hardcoded mapping if API unavailable
+
+**🔍 Common Mappings** (dynamically resolved):
+| Claude Desktop Request | Resolved To |
+|----------------------|-------------|
+| `claude-3-5-sonnet-20241022` | Latest 3.5 Sonnet model |
+| `claude-sonnet-4-5-20250929` | Latest Sonnet 4 model |
+| `sonnet-4` | Latest Sonnet 4 model |
+| `claude-3-5-haiku-20241022` | Latest 3.5 Haiku model |
+| *Any new model* | Automatically supported |
+
+**💡 Tip**: Check startup logs to see all available model aliases: `./start.sh logs`
 
 ## Troubleshooting
 
@@ -196,6 +216,17 @@ curl http://localhost:7847/health
 ./start.sh start
 ```
 
+#### 📍 **"Okta binary not found" or different path**
+```bash
+# Find your Okta binary location
+which okta-aws-cli-dev-product
+find /usr -name "*okta-aws*" 2>/dev/null
+find ~ -name "*okta-aws*" 2>/dev/null
+
+# Update start.sh with correct path
+# Edit start.sh and change ~/.local/bin/okta-aws-cli-dev-product to your actual path
+```
+
 ### Debug Commands
 
 ```bash
@@ -266,7 +297,8 @@ Claude Desktop → HTTP → localhost:7847 → AWS SDK → Bedrock API
 **Key Features**:
 - ✅ Full `/v1/messages` API compatibility
 - ✅ Server-Sent Events streaming
-- ✅ Model name → Bedrock ARN mapping
+- ✅ **Dynamic model discovery** via Bedrock ListFoundationModels API
+- ✅ **Deprecated model filtering** (excludes LEGACY/DEPRECATED)
 - ✅ Request/response format translation
 - ✅ Tool use forwarding (1:1)
 - ✅ Error handling and fallback models

@@ -20,6 +20,7 @@ ls ~/.local/bin/okta-aws-cli-dev-product
 - **Node.js**: `brew install node` (macOS) or visit [nodejs.org](https://nodejs.org)
 - **AWS CLI**: Ask #ai-tools for `ai-agent` profile setup
 - **Okta CLI**: Contact IT for AWS authentication setup
+  - ⚠️ **Path may vary**: If Okta binary is elsewhere, update `start.sh` with correct path
 
 ## 🚀 Installation (5 minutes)
 
@@ -94,6 +95,16 @@ curl http://localhost:7847/health  # Health check
 2. **GitHub Issues**: [Report problems here](https://github.com/hwadhar/claude-desktop-bedrock-proxy/issues)
 3. **Slack**: Ask in #ai-tools
 4. **Full docs**: See `README.md` for detailed troubleshooting
+
+## ✨ What's New: Dynamic Model Support
+
+**🔄 Auto-Discovery**: The proxy now automatically fetches all available models from Bedrock at startup!
+- ✅ **No manual updates needed** when new Claude models are released
+- ✅ **Deprecated model filtering** - only uses current models
+- ✅ **Smart aliasing** - maps common names to actual model IDs
+- ✅ **Fallback protection** - uses hardcoded mapping if API unavailable
+
+**📋 Check your models**: `./start.sh logs` shows all available model aliases at startup
 
 ---
 
