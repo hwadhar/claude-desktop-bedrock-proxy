@@ -28,6 +28,7 @@ const FALLBACK_MODEL_MAP = {
   'claude-3-5-sonnet-20241022': 'us.anthropic.claude-3-5-sonnet-20241022-v2:0',
   'claude-3-5-haiku-20241022': 'us.anthropic.claude-3-5-haiku-20241022-v1:0',
   'claude-3-opus-20240229': 'us.anthropic.claude-3-opus-20240229-v1:0',
+  'claude-opus-4-5-20251101': 'us.anthropic.claude-3-opus-20240229-v1:0', // Map to available Opus
   'sonnet-4': 'us.anthropic.claude-sonnet-4-20250514-v1:0',
   'claude-sonnet-4': 'us.anthropic.claude-sonnet-4-20250514-v1:0',
   'claude-sonnet-4-5-20250929': 'us.anthropic.claude-sonnet-4-20250514-v1:0',
